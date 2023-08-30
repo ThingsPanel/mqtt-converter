@@ -1,0 +1,37 @@
+# 转换器的broker服务地址
+broker: 127.0.0.1:1883
+
+# IOT平台的broker地址
+mqtt_client:
+  broker: 39.98.176.26:1883
+
+# 是否开启主题转换功能，关闭后，不会对主题进行转换，只是一个简单版的mqtt broker
+rewrit_flag: true
+
+# 发布主题重写，from设备发布消息的主题，to为发布消息到平台的主题
+pub_topic_rewriting:
+  - from: "/sys/+/+/thing/event/consumption/post"
+    to: "device/attributes"
+
+  - from: "device/+/event"
+    to: "device/event"
+
+  - from: "gateway/+/attributes"
+    to: "gateway/attributes"
+  
+  - from: "gateway/+/event"
+    to: "gateway/event"
+
+# 订阅主题重写,from为设备订阅的主题，to为订阅平台的主题
+sub_topic_rewriting:
+  - from: "/+/+/user/get"
+    to: "device/attributes/{username}"
+
+  - from: "device/sub/+/event"
+    to: "device/event/{username}"
+
+  - from: "gateway/sub/+/attributes"
+    to: "gateway/attributes/{username}"
+  
+  - from: "gateway/sub/+/event"
+    to: "gateway/event/{username}"
