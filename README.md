@@ -35,7 +35,7 @@ MQTT (消息队列遥测传输) 是一个轻量级的、开源的、基于发布
 ## 安装
 - 克隆仓库
 ```bash
-git clone https://github.com/your-repository/mqtt-converter.git
+git clone https://github.com/ThingsPanel/mqtt-converter.git
 ```
 - 改变目录
 ```bash

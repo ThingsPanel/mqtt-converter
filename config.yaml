@@ -1,9 +1,9 @@
 # 转换器的broker服务地址
-broker: 127.0.0.1:1883
+broker: 127.0.0.1:18883
 
 # IOT平台的broker地址
 mqtt_client:
-  broker: 39.98.176.26:1883
+  broker: 127.0.0.1:1883
 
 # 是否开启主题转换功能，关闭后，不会对主题进行转换，只是一个简单版的mqtt broker
 rewrit_flag: true
