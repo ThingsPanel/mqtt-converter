@@ -8,6 +8,10 @@ mqtt_client:
 # 是否开启主题转换功能，关闭后，不会对主题进行转换，只是一个简单版的mqtt broker
 rewrit_flag: true
 
+# 是否关闭日志
+log:
+  disable: false
+
 # 发布主题重写，from设备发布消息的主题，to为发布消息到平台的主题
 pub_topic_rewriting:
   - from: "/sys/+/+/thing/event/consumption/post"

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"regexp"
 	"strings"
 	"time"
@@ -38,7 +38,6 @@ func PublishPacket(client mqtt.Client, p *packets.PublishPacket, brokerClient Mq
 	// 发布转换规则编写...
 	var topic string = p.TopicName
 	var payload []byte = p.Payload
-	fmt.Println(TopicPubRewriting)
 	for _, v := range TopicPubRewriting {
 		from := strings.Replace(v.From, "{username}", brokerClient.Username, -1)
 		to := v.To
@@ -51,7 +50,7 @@ func PublishPacket(client mqtt.Client, p *packets.PublishPacket, brokerClient Mq
 		}
 	}
 	// 发布消息
-	fmt.Println("发布平台主题：", topic)
+	log.Println("发布平台主题：", topic)
 	token := client.Publish(topic, p.Qos, false, payload)
 	token.Wait()
 }
@@ -77,9 +76,9 @@ func SubscribePacket(client mqtt.Client, p *packets.SubscribePacket, brokerClien
 		}
 	}
 	// 订阅消息
-	fmt.Println("订阅平台主题：", topicList[0])
+	log.Println("订阅平台主题：", topicList[0])
 	token := client.Subscribe(topicList[0], p.Qoss[0], func(c mqtt.Client, d mqtt.Message) {
-		fmt.Println("接收来自平台的消息: ", d.Topic(), "Message: ", string(d.Payload()))
+		log.Println("接收来自平台的消息: ", d.Topic(), "Message: ", string(d.Payload()))
 		var messageId uint16 = d.MessageID()
 		// 转换消息
 		payload := SubPayloadRewriting(topicFrom, d.Payload())
@@ -103,7 +102,7 @@ func PublishMessageToTopic(topic string, message []byte, Qos byte, MessageID uin
 	publishPacket.TopicName = topic
 	publishPacket.Payload = message
 	// 设置其他必要的PUBLISH包字段，如QoS等...
-	fmt.Println(Qos)
+	log.Println(Qos)
 	publishPacket.Qos = Qos
 	publishPacket.MessageID = MessageID
 	for _, subscriberConn := range subscribers {
